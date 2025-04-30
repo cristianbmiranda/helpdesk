@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Senha - HelpDesk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #60a5fa, #10b981);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .box {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #10b981;
+            text-align: center;
+        }
+        .sub-logo {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="logo">HelpDesk</div>
+        <div class="sub-logo">Prefeitura de Amambai-MS</div>
+
+        <h5 class="mb-3 text-center">Recuperar Senha</h5>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info text-center">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Digite seu e-mail cadastrado:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

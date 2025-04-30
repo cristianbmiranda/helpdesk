@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Chamado - HelpDesk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #60a5fa, #10b981);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        h3 {
+            color: #10b981;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .btn-success {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Editar Chamado</h3>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Título</label>
+                <input type="text" class="form-control" value="{{ chamado.titulo }}" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-control" rows="3" disabled>{{ chamado.descricao }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Atualizar Status</label>
+                <select name="status" class="form-select" required>
+                    <option value="Aberto" {% if chamado.status == 'Aberto' %}selected{% endif %}>Aberto</option>
+                    <option value="Em andamento" {% if chamado.status == 'Em andamento' %}selected{% endif %}>Em andamento</option>
+                    <option value="Concluído" {% if chamado.status == 'Concluído' %}selected{% endif %}>Concluído</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="tecnico_responsavel" class="form-label">Técnico Responsável</label>
+                <select name="tecnico_responsavel" class="form-select">
+                    <option value="">-- Selecione --</option>
+                    {% for tecnico in tecnicos %}
+                        <option value="{{ tecnico.nome }}" {% if chamado.tecnico_responsavel == tecnico.nome %}selected{% endif %}>
+                            {{ tecnico.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-success">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

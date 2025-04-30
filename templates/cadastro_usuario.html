@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Usuário - HelpDesk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #60a5fa, #10b981);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-box {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #10b981;
+            text-align: center;
+        }
+        .sub-logo {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <div class="logo">HelpDesk</div>
+        <div class="sub-logo">Prefeitura de Amambai-MS</div>
+
+        <h4 class="mb-3 text-center">Cadastro de Usuário</h4>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" name="nome" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Usuário</label>
+                <input type="text" name="usuario" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input type="password" name="senha" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Perfil</label>
+                <select name="perfil" class="form-select" required>
+                    <option value="comum">Usuário Comum</option>
+                    <option value="tecnico">Técnico/Admin</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
